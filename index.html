@@ -236,7 +236,7 @@ var GDRIVE_CLIENT_ID = '872104274431-4k5603k842orhjkktu1h0db0bk6n55og.apps.googl
 // Modelos de descrição de atividades
 var MODELOS_DESC = [
   {id:'monitoramento', nome:'🔍 Fisc. Rotina',
-   template:'Realizamos monitoramento e fiscalização em pontos importantes para a segurança viária e coibimos irregularidade quanto a infrações de trânsito, {situacao}, {local}, {veiculo}, {resultado}.',
+   template:'Realizamos monitoramento e fiscalização em pontos importantes para a segurança viária e coibimos irregularidade quanto a infrações de trânsito.\nSituação: {situacao}\nLocal: {local}\nVeículo: {veiculo}\nResultado: {resultado}',
    campos:[{id:'situacao',label:'Situação'},{id:'local',label:'Local'},{id:'veiculo',label:'Veículo'},{id:'resultado',label:'Resultado'}]},
   {id:'cott', nome:'📞 COTT',
    template:'Atendemos solicitação do COTT referente {situacao}, {local}, {veiculo}, {resultado}.',
@@ -715,7 +715,12 @@ function addAtv(){
       hiVal='12:00';
     }
   } else {
-    hiVal=getLastHF()||'12:00'; // hora inicial = hora final da anterior
+    var _lastHF=getLastHF();
+    if(_lastHF){
+      var _lp=_lastHF.split(':'),_lh=parseInt(_lp[0]),_lm=parseInt(_lp[1])+5;
+      if(_lm>=60){_lh=(_lh+1)%24;_lm-=60;}
+      hiVal=String(_lh).padStart(2,'0')+':'+String(_lm).padStart(2,'0');
+    } else { hiVal='12:00'; }
   }
   var div=document.createElement('div');
   div.className='atv-block';div.id=id;
@@ -736,7 +741,7 @@ function addAtv(){
     // CAMPO PEQUENO: Ação / Local (nome do local — vai na linha superior do PDF)
     '<div style="margin-bottom:10px">'+
       '<span class="mini-label">Ação / Local <span style="font-weight:400;color:#9ca3af">(nome do local)</span></span>'+
-      '<input type="text" class="mini-input" id="'+id+'_loc" maxlength="45" oninput="updateCount(this,45,this.id+\'_cnt\')" placeholder="Ex: Mangabeira, Av. Epitácio Pessoa..."><div class="char-count" id="'+id+'_loc_cnt">0/45</div>'+
+      '<textarea class="mini-input" id="'+id+'_loc" maxlength="45" rows="1" style="overflow:hidden;resize:none;" oninput="autoExpand(this);updateCount(this,45,this.id+\'_cnt\')" placeholder="Ex: Mangabeira, Av. Epitácio Pessoa..."></textarea><div class="char-count" id="'+id+'_loc_cnt">0/45</div>'+
     '</div>'+
     // CAMPO GRANDE: Descrição do serviço (vai na área grande do PDF abaixo)
     '<div style="margin-bottom:10px">'+
@@ -1300,7 +1305,8 @@ function gerarPDF(){
     sf('normal',11);sc(0,0,0);T('Outros Relatos',mg+2,y+4);
     y+=5.5;
     sf('normal',9);sc(0,0,0);
-    var relLines=doc.splitTextToSize(d.relatos||'',cw-4);
+    var textoRef='Designação: Agentes: 000000                             condutor VTR 00: 000000\nFiscalizar e atender ocorrências na minha regional. Feedback: Os trabalhos foram realizados de forma satisfatória.\n\nDesignação: Motociclistas: 000000\nFiscalizar e atender ocorrências na minha regional. Feedback: Os trabalhos foram realizados de forma satisfatória.\n\nDesignação: Ciclistas: 000000                                condutor VTR 00: 000000\nFiscalizar e atender ocorrências na minha regional. Feedback: Os trabalhos foram realizados de forma satisfatória.\n\nAgente(s) faltoso(s):';
+    var relLines=doc.splitTextToSize(textoRef,cw-4);
     var lh=3.5;
     var relH=Math.max(32,relLines.length*lh+4);
     var spLeft=H-y-38;
