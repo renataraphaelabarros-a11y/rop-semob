@@ -128,7 +128,17 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;min-height:100vh;display:
   <div class="card">
     <div class="card-lbl">Equipe e Viatura</div>
     <div class="field"><label>Equipe</label><textarea id="equipe" rows="1" style="overflow:hidden;resize:none;width:100%;border:1px solid #d1d5db;border-radius:8px;padding:8px 10px;font-size:14px;font-family:inherit;" placeholder="Nome da equipe" inputmode="numeric" oninput="autoExpand(this)"></textarea></div>
-    <div class="row"><div class="field"><label>Regional</label><input type="text" id="regional" placeholder="Ex: Norte"></div></div>
+    <div class="field">
+    <label>Regional</label>
+    <div class="chips" style="margin-bottom:8px;flex-wrap:wrap;">
+      <div class="chip" onclick="toggleRegional(this,'R1')">R1</div>
+      <div class="chip" onclick="toggleRegional(this,'R2')">R2</div>
+      <div class="chip" onclick="toggleRegional(this,'R3')">R3</div>
+      <div class="chip" onclick="toggleRegional(this,'Apoio DIF')">Apoio DIF</div>
+      <div class="chip" onclick="toggleRegional(this,'GERAL')">GERAL</div>
+    </div>
+    <input type="text" id="regional" placeholder="Ex: R1, R2...">
+  </div>
     <div class="field"><label>Condutor de Viatura?</label><div class="chips"><div class="chip" id="vSIM" onclick="setViatura('SIM')">SIM</div><div class="chip on-red" id="vNAO" onclick="setViatura('NAO')">NÃO</div></div></div>
     <div class="row"><div class="field"><label>N° Viatura</label><input type="text" id="numVtr" placeholder="Ex: 1234" inputmode="numeric"></div><div class="field"><label>Condutor VTR</label><input type="text" id="condutorVtr" placeholder="Matrícula" inputmode="numeric"></div></div>
   </div>
@@ -675,6 +685,17 @@ function setViatura(v){
   document.getElementById('vSIM').className='chip'+(v==='SIM'?' on':'');
   document.getElementById('vNAO').className='chip'+(v==='NAO'?' on-red':'');
 }
+
+function toggleRegional(el, val){
+  el.classList.toggle('on');
+  // Reconstruir o campo a partir dos chips ativos
+  var ativos = [];
+  document.querySelectorAll('#p1 .chip[onclick^="toggleRegional"]').forEach(function(c){
+    if(c.classList.contains('on')) ativos.push(c.textContent.trim());
+  });
+  document.getElementById('regional').value = ativos.join(', ');
+}
+
 function toggleChip(el,s){
   el.classList.toggle('on');
   if(el.classList.contains('on')){if(setores.indexOf(s)===-1)setores.push(s);}
@@ -753,7 +774,7 @@ function addAtv(){
     // HORAS na mesma linha
     '<div style="display:flex;gap:10px">'+
       '<div style="flex:1"><span class="mini-label">Hora Inicial</span><input type="time" class="mini-input" id="'+id+'_hi" value="'+hiVal+'"></div>'+
-      '<div style="flex:1"><span class="mini-label">Hora Final</span><input type="time" class="mini-input" id="'+id+'_hf" oninput="atualizarHoraFimIdent()"></div>'+
+      '<div style="flex:1"><span class="mini-label">Hora Final</span><input type="time" class="mini-input" id="'+id+'_hf" oninput="atualizarHoraFimIdent()" onchange="atualizarHoraFimIdent()"></div>'+
     '</div>';
   document.getElementById('atvContainer').appendChild(div);
   var total = document.querySelectorAll('.atv-block').length;
