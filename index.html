@@ -97,7 +97,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;min-height:100vh;display:
 .modal-btn.secondary{background:#f3f4f6;color:#374151;}
 
 .modelo-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;}
-.modelo-chip{padding:5px 10px;border-radius:20px;border:1px solid #1a6b2f;color:#1a6b2f;font-size:11px;cursor:pointer;background:white;font-weight:600;}
+.modelo-chip{padding:10px 16px;border-radius:22px;border:2px solid #1a6b2f;color:#1a6b2f;font-size:13px;cursor:pointer;background:white;font-weight:600;min-height:44px;display:inline-flex;align-items:center;}
 .modelo-chip.ativo{background:#1a6b2f;color:white;}
 .modelo-chip.usado{background:#166534;color:white;border-color:#166534;opacity:0.85;}
 .modelo-campos{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px;margin-bottom:8px;display:none;}
@@ -921,40 +921,52 @@ function selecionarRelato(modeloId){
   var modelo=MODELOS_RELATOS.find(function(m){return m.id===modeloId;});
   if(!modelo) return;
   var chip=document.querySelector('#relatos_chips .modelo-chip[onclick*="'+modeloId+'"]');
-  if(chip) chip.classList.add('usado');
-  var blocoId='relatos_m_'+modeloId+'_'+Date.now();
+  var blocoId='relatos_m_'+modeloId;
   var mc=document.getElementById('relatos_mcampos');
+  var existing=document.getElementById(blocoId);
+  if(existing){
+    // Toggle visibilidade da caixa de campos
+    var campos=existing.querySelector('.relato-campos');
+    if(campos) campos.style.display=(campos.style.display==='none'?'block':'none');
+    return;
+  }
+  // Criar bloco novo
+  if(chip) chip.classList.add('usado');
   mc.style.display='block';
   var div=document.createElement('div');
   div.id=blocoId;
   div.style.cssText='border-top:1px dashed #bbf7d0;padding-top:8px;margin-top:8px;';
-  div.innerHTML='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">'+
-    '<span style="font-size:11px;font-weight:700;color:#1a6b2f;">'+modelo.nome+'</span>'+
-    '<button type="button" onclick="removerBlocoRelato(\''+blocoId+'\')" style="background:#fee2e2;border:none;border-radius:4px;color:#dc2626;font-size:11px;padding:2px 6px;cursor:pointer;">✕</button>'+
+  div.innerHTML=
+    '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">'+
+      '<span style="font-size:11px;font-weight:700;color:#1a6b2f;">'+modelo.nome+'</span>'+
+      '<button type="button" onclick="removerBlocoRelato(\''+blocoId+'\')" style="background:#fee2e2;border:none;border-radius:4px;color:#dc2626;font-size:12px;padding:4px 10px;cursor:pointer;">✕ remover</button>'+
     '</div>'+
+    '<div class="relato-campos">'+
     modelo.campos.map(function(c){
       return '<div class="modelo-campo-row"><span class="modelo-campo-label">'+c.label+':</span>'+
         '<input class="modelo-campo-input" type="text"'+(c.numeric?' inputmode="numeric" pattern="[0-9]*"':'')+
         ' id="'+blocoId+'_'+c.id+'" placeholder="'+c.label+'..." oninput="reconstruirRelatos()" autocomplete="off"></div>';
     }).join('')+
+    '</div>'+
     '<input type="hidden" id="'+blocoId+'_modeloId" value="'+modeloId+'">';
   mc.appendChild(div);
   reconstruirRelatos();
 }
+
 function removerBlocoRelato(blocoId){
   var el=document.getElementById(blocoId);
   if(el){
     var mEl=el.querySelector('[id$="_modeloId"]');
-    if(mEl){var mId=mEl.value;
-      if(!document.querySelectorAll('[id^="relatos_m_'+mId+'_"]')[1]){
-        var chip=document.querySelector('#relatos_chips .modelo-chip[onclick*="'+mId+'"]');
-        if(chip) chip.classList.remove('usado');
-      }
+    if(mEl){
+      var mId=mEl.value;
+      var chip=document.querySelector('#relatos_chips .modelo-chip[onclick*="'+mId+'"]');
+      if(chip) chip.classList.remove('usado');
     }
     el.remove();
   }
   reconstruirRelatos();
 }
+
 function reconstruirRelatos(){
   var mc=document.getElementById('relatos_mcampos');
   var partes=[];
