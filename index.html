@@ -151,7 +151,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;min-height:100vh;display:
     <input type="text" id="regional" placeholder="Ex: R1, R2...">
   </div>
     <div class="field"><label>Condutor de Viatura?</label><div class="chips"><div class="chip" id="vSIM" onclick="setViatura('SIM')">SIM</div><div class="chip on-red" id="vNAO" onclick="setViatura('NAO')">NÃO</div></div></div>
-    <div class="row"><div class="field"><label>N° Viatura</label><input type="text" id="numVtr" placeholder="Ex: 1234" inputmode="numeric"></div><div class="field"><label>Condutor VTR</label><input type="text" id="condutorVtr" placeholder="Matrícula" inputmode="numeric"></div></div>
+    <div class="row"><div class="field"><label>N° Viatura</label><input type="text" id="numVtr" placeholder="Ex: 1234" inputmode="numeric"></div></div>
   </div>
   <div class="card">
     <div class="card-lbl">Setor de Trabalho</div>
@@ -557,7 +557,7 @@ function salvarRascunho(){
 function coletarRascunho(){
   // Coletar todos os campos do formulário
   var campos={};
-  ['nome','mat','dataIni','horaIni','dataFim','horaFim','equipe','regional','numVtr','condutorVtr','passeiPara','relatos'].forEach(function(id){
+  ['nome','mat','dataIni','horaIni','dataFim','horaFim','equipe','regional','numVtr','passeiPara','relatos'].forEach(function(id){
     var el=document.getElementById(id);
     if(el)campos[id]=el.value;
   });
@@ -608,7 +608,7 @@ function restaurarRascunho(){
     avaliacao={q1:'SIM',q2:'SIM',q3:'SIM',q4:'SIM',q5:'NAO',q6:'NAO'};
 
     // Campos simples
-    ['nome','mat','dataIni','horaIni','dataFim','horaFim','equipe','regional','numVtr','condutorVtr','passeiPara','relatos'].forEach(function(id){
+    ['nome','mat','dataIni','horaIni','dataFim','horaFim','equipe','regional','numVtr','passeiPara','relatos'].forEach(function(id){
       var el=document.getElementById(id);
       if(el&&d[id]!==undefined)el.value=d[id];
     });
@@ -1160,7 +1160,7 @@ function collectData(){
     var id=c.id;
     abs.push({tipo:g(id+'_tipo'),doc:g(id+'_doc'),num:g(id+'_num'),placa:g(id+'_placa'),uf:g(id+'_uf')});
   });
-  return{nome:g('nome'),mat:g('mat'),dataIni:g('dataIni'),horaIni:g('horaIni'),dataFim:g('dataFim'),horaFim:g('horaFim'),equipe:g('equipe'),regional:g('regional'),viatura:viatura,numVtr:g('numVtr'),condutorVtr:g('condutorVtr'),setores:setores,passeiPara:g('passeiPara'),atvs:atvs,abs:abs,avaliacao:avaliacao,relatos:g('relatos')};
+  return{nome:g('nome'),mat:g('mat'),dataIni:g('dataIni'),horaIni:g('horaIni'),dataFim:g('dataFim'),horaFim:g('horaFim'),equipe:g('equipe'),regional:g('regional'),viatura:viatura,numVtr:g('numVtr'),setores:setores,passeiPara:g('passeiPara'),atvs:atvs,abs:abs,avaliacao:avaliacao,relatos:g('relatos')};
 }
 
 // ======================
@@ -1528,7 +1528,7 @@ function gerarPDF(){
     var ppFieldX=ppX+34;
     sfl(230,235,255);doc.rect(ppFieldX,y+1.5,W-mg-ppFieldX,fH-3,'F');
     doc.setLineWidth(0.2);R(ppFieldX,y+1.5,W-mg-ppFieldX,fH-3);doc.setLineWidth(0.3);
-    sf('normal',12);sc(0,0,0);T(d.passeiPara||'',ppFieldX+1.5,y+5.2);
+    addTF('passei_para',ppFieldX,y+1.5,W-mg-ppFieldX,fH-3,10,d.passeiPara||'');
     y+=fH+2;
 
     // ============================================================
