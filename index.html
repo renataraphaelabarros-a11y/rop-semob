@@ -166,8 +166,18 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;min-height:100vh;display:
   </div>
 </div>
 
-<!-- STEP 2: ATIVIDADES -->
+<!-- STEP 2: OUTROS RELATOS -->
 <div class="step-panel" id="p2">
+  <div class="step-hdr"><span class="step-emoji">📝</span><div class="step-title">Outros Relatos</div><div class="step-desc">Registro do turno</div></div>
+  <div class="card">
+    <div class="modelo-chips" id="relatos_chips"></div>
+    <div class="modelo-campos" id="relatos_mcampos"></div>
+    <textarea id="relatos" rows="6" style="width:100%;overflow:hidden;min-height:120px;font-size:15px;line-height:1.6;border:1px solid #d1d5db;border-radius:8px;padding:12px;font-family:inherit;resize:none;" oninput="autoExpand(this)" placeholder="Selecione um modelo acima ou digite diretamente..."></textarea>
+  </div>
+</div>
+
+<!-- STEP 3: ATIVIDADES -->
+<div class="step-panel" id="p3">
   <div class="step-hdr"><span class="step-emoji">📋</span><div class="step-title">Atividades</div><div class="step-desc">Registre até 5 ações ou demandas</div></div>
   <div class="card">
     <div class="card-lbl">Ações / Demandas</div>
@@ -176,23 +186,13 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;min-height:100vh;display:
   </div>
 </div>
 
-<!-- STEP 3: ABORDAGENS -->
-<div class="step-panel" id="p3">
+<!-- STEP 4: ABORDAGENS -->
+<div class="step-panel" id="p4">
   <div class="step-hdr"><span class="step-emoji">🚗</span><div class="step-title">Abordagens</div><div class="step-desc">Registre RV e AbCom (se houver)</div></div>
   <div class="card">
     <div class="card-lbl">Registros de Abordagem</div>
     <div id="abContainer"></div>
     <button class="btn-add" onclick="addAb()">+ Adicionar Abordagem</button>
-  </div>
-</div>
-
-<!-- STEP 4: OUTROS RELATOS -->
-<div class="step-panel" id="p4">
-  <div class="step-hdr"><span class="step-emoji">📝</span><div class="step-title">Outros Relatos</div><div class="step-desc">Registro do turno</div></div>
-  <div class="card">
-    <div class="modelo-chips" id="relatos_chips"></div>
-    <div class="modelo-campos" id="relatos_mcampos"></div>
-    <textarea id="relatos" rows="6" style="width:100%;overflow:hidden;min-height:120px;font-size:15px;line-height:1.6;border:1px solid #d1d5db;border-radius:8px;padding:12px;font-family:inherit;resize:none;" oninput="autoExpand(this)" placeholder="Selecione um modelo acima ou digite diretamente..."></textarea>
   </div>
 </div>
 
