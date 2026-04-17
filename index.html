@@ -141,7 +141,11 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;min-height:100vh;display:
   </div>
   <div class="card">
     <div class="card-lbl">Equipe e Viatura</div>
-    <div class="field"><label>Equipe</label><textarea id="equipe" rows="2" style="overflow:hidden;resize:none;width:100%;border:1px solid #d1d5db;border-radius:8px;padding:8px 10px;font-size:14px;font-family:inherit;min-height:60px;" placeholder="Nome da equipe" inputmode="numeric" oninput="autoExpand(this)" onkeydown="virgulaPorEspaco(event,this)"></textarea></div>
+    <div class="field"><label>👮 Agentes <span style="font-weight:400;color:#9ca3af;font-size:11px;">(matrículas)</span></label><input type="text" id="eq_agentes" inputmode="numeric" placeholder="Ex: 123456, 234567" oninput="sincEquipePara('agentes')" onkeydown="virgulaPorEspaco(event,this)" autocomplete="off" style="width:100%;padding:11px 13px;border:1.5px solid #d1d5db;border-radius:9px;font-size:14px;font-family:inherit;"></div>
+    <div class="field"><label>🏍️ Motociclistas <span style="font-weight:400;color:#9ca3af;font-size:11px;">(matrículas)</span></label><input type="text" id="eq_moto" inputmode="numeric" placeholder="Ex: 123456, 234567" oninput="sincEquipePara('moto')" onkeydown="virgulaPorEspaco(event,this)" autocomplete="off" style="width:100%;padding:11px 13px;border:1.5px solid #d1d5db;border-radius:9px;font-size:14px;font-family:inherit;"></div>
+    <div class="field"><label>🚴 Ciclistas <span style="font-weight:400;color:#9ca3af;font-size:11px;">(matrículas)</span></label><input type="text" id="eq_cicl" inputmode="numeric" placeholder="Ex: 123456, 234567" oninput="sincEquipePara('cicl')" onkeydown="virgulaPorEspaco(event,this)" autocomplete="off" style="width:100%;padding:11px 13px;border:1.5px solid #d1d5db;border-radius:9px;font-size:14px;font-family:inherit;"></div>
+    <div class="field"><label>🚗 VTR Apoio <span style="font-weight:400;color:#9ca3af;font-size:11px;">(matrículas)</span></label><input type="text" id="eq_apoio" inputmode="numeric" placeholder="Ex: 123456, 234567" oninput="sincEquipePara('apoio')" onkeydown="virgulaPorEspaco(event,this)" autocomplete="off" style="width:100%;padding:11px 13px;border:1.5px solid #d1d5db;border-radius:9px;font-size:14px;font-family:inherit;"></div>
+    <input type="hidden" id="equipe">
     <div class="field">
     <label>Regional</label>
     <div class="chips" style="margin-bottom:8px;flex-wrap:wrap;">
@@ -562,7 +566,7 @@ function salvarRascunho(){
 function coletarRascunho(){
   // Coletar todos os campos do formulário
   var campos={};
-  ['nome','mat','dataIni','horaIni','dataFim','horaFim','equipe','regional','numVtr','passeiPara','relatos'].forEach(function(id){
+  ['nome','mat','dataIni','horaIni','dataFim','horaFim','equipe','eq_agentes','eq_moto','eq_cicl','eq_apoio','regional','numVtr','passeiPara','relatos'].forEach(function(id){
     var el=document.getElementById(id);
     if(el)campos[id]=el.value;
   });
@@ -613,7 +617,7 @@ function restaurarRascunho(){
     avaliacao={q1:'SIM',q2:'SIM',q3:'SIM',q4:'SIM',q5:'NAO',q6:'NAO'};
 
     // Campos simples
-    ['nome','mat','dataIni','horaIni','dataFim','horaFim','equipe','regional','numVtr','passeiPara','relatos'].forEach(function(id){
+    ['nome','mat','dataIni','horaIni','dataFim','horaFim','equipe','eq_agentes','eq_moto','eq_cicl','eq_apoio','regional','numVtr','passeiPara','relatos'].forEach(function(id){
       var el=document.getElementById(id);
       if(el&&d[id]!==undefined)el.value=d[id];
     });
@@ -1103,6 +1107,21 @@ function selecionarRelato(modeloId){
     '</div>'+
     '<input type="hidden" id="'+blocoId+'_modeloId" value="'+modeloId+'">';
   mc.appendChild(div);
+  // Pré-preencher campos de equipe a partir da Identificação
+  var preenchMap = {
+    'agentes':     { campo: 'matr_agentes', identId: 'eq_agentes' },
+    'motociclista':{ campo: 'matr_moto',    identId: 'eq_moto' },
+    'ciclistas':   { campo: 'matr_cicl',    identId: 'eq_cicl' },
+    'apoio':       { campo: 'matr_apoio',   identId: 'eq_apoio' }
+  };
+  if(preenchMap[modeloId]){
+    var pm = preenchMap[modeloId];
+    var identEl = document.getElementById(pm.identId);
+    var relatoEl = document.getElementById(blocoId + '_' + pm.campo);
+    if(identEl && relatoEl && identEl.value.trim()){
+      relatoEl.value = identEl.value;
+    }
+  }
   reconstruirRelatos();
 }
 
@@ -1137,24 +1156,47 @@ function virgulaPorEspaco(e, el){
   }
 }
 
+// Mapa: chave -> {idIdent: campo na Identificação, idRelato: campo no Relatos}
+var EQUIPE_MAP = {
+  'agentes': { idIdent: 'eq_agentes', idRelato: 'relatos_m_agentes_matr_agentes' },
+  'moto':    { idIdent: 'eq_moto',    idRelato: 'relatos_m_motociclista_matr_moto' },
+  'cicl':    { idIdent: 'eq_cicl',    idRelato: 'relatos_m_ciclistas_matr_cicl' },
+  'apoio':   { idIdent: 'eq_apoio',   idRelato: 'relatos_m_apoio_matr_apoio' }
+};
+
+// Chamado quando o usuário digita na Identificação → propaga para os Relatos
+function sincEquipePara(chave){
+  var m = EQUIPE_MAP[chave];
+  if(!m) return;
+  var identEl = document.getElementById(m.idIdent);
+  var relatoEl = document.getElementById(m.idRelato);
+  if(identEl && relatoEl){
+    relatoEl.value = identEl.value;
+    reconstruirRelatos();
+  }
+  atualizarEquipe();
+}
+
+// Chamado quando o usuário digita nos Relatos → propaga para a Identificação
+function sincRelatoPara(chave){
+  var m = EQUIPE_MAP[chave];
+  if(!m) return;
+  var identEl = document.getElementById(m.idIdent);
+  var relatoEl = document.getElementById(m.idRelato);
+  if(identEl && relatoEl){
+    identEl.value = relatoEl.value;
+  }
+  atualizarEquipe();
+}
+
 function atualizarEquipe(){
   var matriculas = [];
-  // Campos de matrícula dos relatos
-  var ids = [
-    'relatos_m_agentes_matr_agentes',
-    'relatos_m_motociclista_matr_moto',
-    'relatos_m_ciclistas_matr_cicl',
-    'relatos_m_apoio_matr_apoio'
-  ];
-  ids.forEach(function(id){
-    var el = document.getElementById(id);
-    if(el && el.value.trim()) matriculas.push(el.value.trim());
-  });
   var equipeEl = document.getElementById('equipe');
-  if(equipeEl){
-    equipeEl.value = matriculas.join(', ');
-    autoExpand(equipeEl);
-  }
+  Object.keys(EQUIPE_MAP).forEach(function(chave){
+    var identEl = document.getElementById(EQUIPE_MAP[chave].idIdent);
+    if(identEl && identEl.value.trim()) matriculas.push(identEl.value.trim());
+  });
+  if(equipeEl) equipeEl.value = matriculas.join(', ');
 }
 
 function reconstruirRelatos(){
@@ -1175,6 +1217,15 @@ function reconstruirRelatos(){
   var rel=document.getElementById('relatos');
   rel.value=partes.join('\n\n');
   autoExpand(rel);
+  // Sincronizar campos de relatos → identificação (bidirecional)
+  Object.keys(EQUIPE_MAP).forEach(function(chave){
+    var m = EQUIPE_MAP[chave];
+    var identEl = document.getElementById(m.idIdent);
+    var relatoEl = document.getElementById(m.idRelato);
+    if(identEl && relatoEl && relatoEl.value.trim()){
+      identEl.value = relatoEl.value;
+    }
+  });
   atualizarEquipe();
 }
 function autoExpand(el){
@@ -1554,7 +1605,7 @@ function gerarPDF(){
     relH=Math.min(relH,spLeft);
     R(mg,y,cw,relH);
     sf('normal',relFontSize);sc(0,0,0);
-    addTFMulti('outros_relatos', mg, y, cw, relH, relFontSize, d.relatos||'');
+    addTFMulti('outros_relatos', mg, y+2, cw, relH-2, relFontSize, d.relatos||'');
     y+=relH+2;
 
     // ---- Footer: Data Final | Hora Final | Passei para ----
