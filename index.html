@@ -1534,14 +1534,27 @@ function gerarPDF(){
     sf('normal',11);sc(0,0,0);T('Outros Relatos',mg+2,y+4);
     y+=5.5;
     sf('normal',9);sc(0,0,0);
-    var textoRef='Designação: Agentes: 000000                             condutor VTR 00: 000000\nFiscalizar e atender ocorrências na minha regional. Feedback: Os trabalhos foram realizados de forma satisfatória.\n\nDesignação: Motociclistas: 000000\nFiscalizar e atender ocorrências na minha regional. Feedback: Os trabalhos foram realizados de forma satisfatória.\n\nDesignação: Ciclistas: 000000                                condutor VTR 00: 000000\nFiscalizar e atender ocorrências na minha regional. Feedback: Os trabalhos foram realizados de forma satisfatória.\n\nAgente(s) faltoso(s):';
-    var relLines=doc.splitTextToSize(textoRef,cw-4);
-    var lh=3.5;
-    var relH=Math.max(32,relLines.length*lh+4);
+    // Calcular altura e fonte para Outros Relatos — nunca cria nova página
+    var textoReal=d.relatos||'';
+    var textoRef='Designação: Agentes: 000000                             condutor VTR 00: 000000\nFiscalizar e atender ocorrências na minha regional. Feedback: Os trabalhos foram realizados de forma satisfatória.\n\nDesignação: Motociclistas: 000000\nFiscalizar e atender ocorrências na minha regional. Feedback: Os trabalhos foram realizados de forma satisfatória.\n\nDesignação: Ciclistas: 000000                                condutor VTR 00: 000000\nFiscalizar e atender ocorrências na minha regional. Feedback: Os trabalhos foram realizados de forma satisfatória.\n\nDesignação: VTR - APOIO R 0: 000000                     Condutor VTR 00: 000000\nFiscalizar e atender ocorrências na minha regional. Feedback: Os trabalhos foram realizados de forma satisfatória.\n\nAgente(s) faltoso(s): 000000';
     var spLeft=H-y-38;
-    if(relH>spLeft)relH=spLeft;
+    // Encontrar fonte ideal — começa em 9, reduz até caber
+    var relFontSize=9;
+    var relLines, relH, lh;
+    for(var fs=9; fs>=5; fs-=0.5){
+      lh=fs*0.45;
+      var textoCalc=textoReal||textoRef;
+      doc.setFontSize(fs);
+      relLines=doc.splitTextToSize(textoCalc,cw-4);
+      relH=Math.max(32,relLines.length*lh+4);
+      if(relH<=spLeft){ relFontSize=fs; break; }
+      if(fs<=5){ relH=spLeft; break; }
+    }
+    lh=relFontSize*0.45;
+    relH=Math.min(relH,spLeft);
     R(mg,y,cw,relH);
-    addTFMulti('outros_relatos', mg, y, cw, relH, 9, d.relatos||'');
+    sf('normal',relFontSize);sc(0,0,0);
+    addTFMulti('outros_relatos', mg, y, cw, relH, relFontSize, d.relatos||'');
     y+=relH+2;
 
     // ---- Footer: Data Final | Hora Final | Passei para ----
