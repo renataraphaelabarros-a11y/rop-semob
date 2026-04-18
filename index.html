@@ -28,8 +28,8 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;min-height:100vh;display:
 .card{background:white;border-radius:14px;padding:20px;box-shadow:0 1px 4px rgba(0,0,0,.07),0 4px 14px rgba(0,0,0,.05);margin-bottom:14px}
 .card-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#1a6b2f;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #e9f7ec}
 .field{margin-bottom:14px}.field:last-child{margin-bottom:0}
-.field label{display:block;font-size:13px;font-weight:600;color:#374151;margin-bottom:5px}
-.field input[type=text],.field input[type=date],.field input[type=time],.field textarea{width:100%;padding:11px 13px;border:1.5px solid #d1d5db;border-radius:9px;font-family:'Inter',sans-serif;font-size:15px;color:#111;background:white;-webkit-appearance:none;transition:border-color .2s}
+.field label{display:block;font-size:15px;font-weight:600;color:#374151;margin-bottom:6px}
+.field input[type=text],.field input[type=date],.field input[type=time],.field textarea{width:100%;padding:11px 13px;border:1.5px solid #d1d5db;border-radius:9px;font-family:'Inter',sans-serif;font-size:16px;color:#111;background:white;-webkit-appearance:none;transition:border-color .2s}
 .field input:focus,.field textarea:focus{outline:none;border-color:#1a6b2f;box-shadow:0 0 0 3px rgba(26,107,47,.1)}
 .field textarea{resize:vertical}
 .row{display:flex;gap:10px}.row .field{flex:1}
@@ -50,13 +50,23 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;min-height:100vh;display:
 .char-count.over{color:#ef4444;font-weight:bold;}
 /* Atividade */
 .atv-block{border:1.5px solid #e5e7eb;border-radius:11px;padding:16px;margin-bottom:12px;background:#fafafa}
+.atv-block:nth-child(1){background:#f0fdf4;border-color:#bbf7d0;border-left:4px solid #15803d}
+.atv-block:nth-child(2){background:#eff6ff;border-color:#bfdbfe;border-left:4px solid #1d4ed8}
+.atv-block:nth-child(3){background:#fefce8;border-color:#fde68a;border-left:4px solid #a16207}
+.atv-block:nth-child(4){background:#fdf4ff;border-color:#e9d5ff;border-left:4px solid #7e22ce}
+.atv-block:nth-child(5){background:#fff7ed;border-color:#fed7aa;border-left:4px solid #c2410c}
+.atv-block:nth-child(1) .atv-num{color:#15803d}
+.atv-block:nth-child(2) .atv-num{color:#1d4ed8}
+.atv-block:nth-child(3) .atv-num{color:#a16207}
+.atv-block:nth-child(4) .atv-num{color:#7e22ce}
+.atv-block:nth-child(5) .atv-num{color:#c2410c}
 .atv-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
 .atv-num{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#1a6b2f}
 .btn-rm{width:26px;height:26px;background:#fee2e2;color:#dc2626;border:none;border-radius:6px;cursor:pointer;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.mini-label{font-size:12px;font-weight:600;color:#6b7280;margin-bottom:5px;display:block}
-.mini-input{width:100%;padding:9px 11px;border:1.5px solid #d1d5db;border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;color:#111;background:white;-webkit-appearance:none}
+.mini-label{font-size:13px;font-weight:600;color:#6b7280;margin-bottom:5px;display:block}
+.mini-input{width:100%;padding:10px 12px;border:1.5px solid #d1d5db;border-radius:8px;font-family:'Inter',sans-serif;font-size:15px;color:#111;background:white;-webkit-appearance:none}
 .mini-input:focus{outline:none;border-color:#1a6b2f}
-.mini-textarea{width:100%;padding:9px 11px;border:1.5px solid #d1d5db;border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;color:#111;background:white;resize:vertical;min-height:70px}
+.mini-textarea{width:100%;padding:10px 12px;border:1.5px solid #d1d5db;border-radius:8px;font-family:'Inter',sans-serif;font-size:15px;color:#111;background:white;resize:vertical;min-height:70px}
 .mini-textarea:focus{outline:none;border-color:#1a6b2f}
 /* Abordagem */
 .ab-block{border:1.5px solid #e5e7eb;border-radius:11px;padding:16px;margin-bottom:12px;background:#fafafa}
@@ -97,14 +107,21 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;min-height:100vh;display:
 .modal-btn.secondary{background:#f3f4f6;color:#374151;}
 
 .modelo-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;}
-.modelo-chip{padding:10px 16px;border-radius:22px;border:2px solid #1a6b2f;color:#1a6b2f;font-size:13px;cursor:pointer;background:white;font-weight:600;min-height:44px;display:inline-flex;align-items:center;}
+.modelo-chip{padding:10px 16px;border-radius:22px;border:2px solid #1a6b2f;color:#1a6b2f;font-size:14px;cursor:pointer;background:white;font-weight:600;min-height:44px;display:inline-flex;align-items:center;transition:all .2s;}
 .modelo-chip.ativo{background:#1a6b2f;color:white;}
-.modelo-chip.usado{background:#166534;color:white;border-color:#166534;opacity:0.85;}
+.modelo-chip.usado{background:#1a6b2f;color:white;border-color:#1a6b2f;position:relative;padding-left:12px;padding-right:12px;}
+.modelo-chip.usado::before{content:'✓ ';font-weight:700;}
+.modelo-chip.usado::after{content:' ✓';font-weight:700;}
 .modelo-campos{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px;margin-bottom:8px;display:none;}
 .modelo-campo-row{display:flex;align-items:center;gap:6px;margin-bottom:4px;}
 .modelo-campo-row:last-child{margin-bottom:0;}
-.modelo-campo-label{font-size:11px;color:#1a6b2f;font-weight:600;min-width:70px;}
-.modelo-campo-input{flex:1;border:1px solid #d1d5db;border-radius:6px;padding:6px 8px;font-size:13px;font-family:inherit;}
+.modelo-campo-label{font-size:13px;color:#1a6b2f;font-weight:600;min-width:80px;}
+.modelo-campo-input{flex:1;border:1px solid #d1d5db;border-radius:6px;padding:8px 10px;font-size:15px;font-family:inherit;}
+.btn-rm-confirmando{background:#dc2626!important;color:white!important;border-radius:6px;animation:piscaRm .4s ease infinite alternate;}
+@keyframes piscaRm{from{opacity:1}to{opacity:.5}}
+.toast-desfazer{display:none;position:fixed;bottom:76px;left:50%;transform:translateX(-50%);background:#374151;color:white;padding:11px 18px;border-radius:11px;font-size:14px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.25);z-index:250;white-space:nowrap;gap:12px;align-items:center;}
+.toast-desfazer.show{display:flex;}
+.btn-desfazer{background:white;color:#374151;border:none;border-radius:7px;padding:5px 12px;font-size:13px;font-weight:700;cursor:pointer;}
 
 /* Drag and drop */
 .drag-handle{cursor:grab;padding:4px 8px;color:#9ca3af;font-size:16px;user-select:none;touch-action:none;}
@@ -230,6 +247,10 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;min-height:100vh;display:
 </div>
 <div class="toast" id="toast">✅ PDF gerado! Verifique seus downloads.</div>
 <div class="toast" id="toastSave" style="background:#1a56a0;">💾 Rascunho salvo!</div>
+<div class="toast-desfazer" id="toastDesfazer">
+  <span id="toastDesfazerMsg">Removido</span>
+  <button class="btn-desfazer" onclick="desfazerRemocao()">↩ Desfazer</button>
+</div>
 
     <div class="modal-overlay" id="modalDrive">
   <div class="modal-box" style="width:90%;max-width:400px;">
@@ -264,12 +285,15 @@ var GDRIVE_CLIENT_ID = '872104274431-4k5603k842orhjkktu1h0db0bk6n55og.apps.googl
 // Modelos de descrição de atividades
 var MODELOS_DESC = [
   {id:'monitoramento', nome:'🔍 Fisc. Rotina',
+   cor:{fundo:'#f0fdf4', borda:'#86efac', faixa:'#bbf7d0', texto:'#15803d'},
    template:'Realizamos monitoramento e fiscalização em pontos importantes para a segurança viária e coibimos irregularidade quanto a infrações de trânsito.\nSituação: {situacao}\nLocal: {local}\nVeículo: {veiculo}\nResultado: {resultado}',
    campos:[{id:'situacao',label:'Situação'},{id:'local',label:'Local'},{id:'veiculo',label:'Veículo'},{id:'resultado',label:'Resultado'}]},
   {id:'cott', nome:'📞 COTT',
+   cor:{fundo:'#eff6ff', borda:'#93c5fd', faixa:'#bfdbfe', texto:'#1d4ed8'},
    template:'Atendemos solicitação do COTT referente {situacao}, {local}, {veiculo}, {resultado}.',
    campos:[{id:'situacao',label:'Situação'},{id:'local',label:'Local'},{id:'veiculo',label:'Veículo'},{id:'resultado',label:'Resultado'}]},
   {id:'fiscalizacao', nome:'🚨 Ocorrência',
+   cor:{fundo:'#fff1f2', borda:'#fca5a5', faixa:'#fecaca', texto:'#b91c1c'},
    template:'Durante fiscalização, visualizamos {situacao}, {local}, {veiculo}, {resultado}.',
    campos:[{id:'situacao',label:'Situação'},{id:'local',label:'Local'},{id:'veiculo',label:'Veículo'},{id:'resultado',label:'Resultado'}]}
 ];
@@ -277,18 +301,23 @@ var MODELOS_DESC = [
 // Modelos de Outros Relatos
 var MODELOS_RELATOS = [
   {id:'agentes', nome:'👮 Agentes',
+   cor:{fundo:'#f0fdf4', borda:'#86efac', faixa:'#bbf7d0', texto:'#15803d'},
    template:'Designação: Agentes: {matr_agentes}                             condutor VTR {vtr}: {condutor}\nFiscalizar e atender ocorrências na minha regional. Feedback: Os trabalhos foram realizados de forma satisfatória.',
    campos:[{id:'matr_agentes',label:'Matr. Agentes',numeric:true},{id:'vtr',label:'N° VTR',numeric:true},{id:'condutor',label:'Condutor',numeric:true}]},
   {id:'motociclista', nome:'🏍️ Motociclista',
+   cor:{fundo:'#eff6ff', borda:'#93c5fd', faixa:'#bfdbfe', texto:'#1d4ed8'},
    template:'Designação: Motociclistas: {matr_moto}\nFiscalizar e atender ocorrências na minha regional. Feedback: Os trabalhos foram realizados de forma satisfatória.',
    campos:[{id:'matr_moto',label:'Matr. Motociclistas',numeric:true}]},
   {id:'ciclistas', nome:'🚴 Ciclistas',
+   cor:{fundo:'#fefce8', borda:'#fcd34d', faixa:'#fde68a', texto:'#a16207'},
    template:'Designação: Ciclistas: {matr_cicl}                                condutor VTR {vtr_cicl}: {matr_cicl_condutor}\nFiscalizar e atender ocorrências na minha regional. Feedback: Os trabalhos foram realizados de forma satisfatória.',
    campos:[{id:'matr_cicl',label:'Matr. Ciclistas',numeric:true},{id:'vtr_cicl',label:'VTR Ciclismo',numeric:true},{id:'matr_cicl_condutor',label:'Matr. Condutor',numeric:true}]},
   {id:'apoio', nome:'🚗 VTR Apoio',
+   cor:{fundo:'#fff7ed', borda:'#fdba74', faixa:'#fed7aa', texto:'#c2410c'},
    template:'Designação: VTR - APOIO R {regional_apoio}: {matr_apoio}                     Condutor VTR {vtr_apoio}: {matr_condutor_apoio}\nFiscalizar e atender ocorrências na minha regional. Feedback: Os trabalhos foram realizados de forma satisfatória.',
    campos:[{id:'regional_apoio',label:'Regional',numeric:true},{id:'matr_apoio',label:'Matr. Apoio',numeric:true},{id:'vtr_apoio',label:'VTR Apoio',numeric:true},{id:'matr_condutor_apoio',label:'Matr. Condutor',numeric:true}]},
   {id:'faltosos', nome:'❌ Faltosos',
+   cor:{fundo:'#fff1f2', borda:'#fca5a5', faixa:'#fecaca', texto:'#b91c1c'},
    template:'Agente(s) faltoso(s): {matr_faltosos}',
    campos:[{id:'matr_faltosos',label:'Matr. Faltosos',numeric:true}]}
 ];
@@ -686,8 +715,31 @@ function descartarRascunho(){
 
 function nextStep(){
   try{localStorage.setItem('rop_rascunho',JSON.stringify(coletarRascunho()));}catch(e){}
-  if(cur<TOTAL){cur++;updateUI();}
-  else{gerarPDF();}
+  if(cur<TOTAL){
+    cur++;
+    updateUI();
+    // Ao entrar em Outros Relatos (step 2), auto-selecionar modelos com base na equipe preenchida
+    if(cur===2) autoSelecionarRelatos();
+  } else {gerarPDF();}
+}
+
+// Auto-seleciona chips de relatos cujos campos de equipe já foram preenchidos na Identificação
+function autoSelecionarRelatos(){
+  var autoMap = [
+    {identId:'eq_agentes',   modeloId:'agentes'},
+    {identId:'eq_moto',      modeloId:'motociclista'},
+    {identId:'eq_cicl',      modeloId:'ciclistas'},
+    {identId:'eq_apoio',     modeloId:'apoio'}
+  ];
+  autoMap.forEach(function(m){
+    var identEl = document.getElementById(m.identId);
+    if(identEl && identEl.value.trim()){
+      // Só adiciona se ainda não estiver aberto
+      if(!document.getElementById('relatos_m_'+m.modeloId)){
+        selecionarRelato(m.modeloId);
+      }
+    }
+  });
 }
 function prevStep(){if(cur>1){cur--;updateUI();}}
 function updateUI(){
@@ -801,11 +853,113 @@ function addAtv(){
   if(total>=5) document.getElementById('btnAddAtv').style.display='none';
 }
 
+// ===== DESFAZER REMOÇÃO =====
+var _undoStack = null;
+var _undoTimer = null;
+var _confirmMap = {};
+
+function _guardaUndo(tipo, html, afterId){
+  _undoStack = {tipo: tipo, html: html, afterId: afterId};
+}
+function desfazerRemocao(){
+  if(!_undoStack) return;
+  var u = _undoStack;
+  _undoStack = null;
+  _esconderDesfazer();
+  if(u.tipo === 'atv'){
+    var container = document.getElementById('atvContainer');
+    var tmp = document.createElement('div');
+    tmp.innerHTML = u.html;
+    var novoEl = tmp.firstChild;
+    var ref = u.afterId ? document.getElementById(u.afterId) : null;
+    if(ref && ref.nextSibling) container.insertBefore(novoEl, ref.nextSibling);
+    else container.appendChild(novoEl);
+    document.getElementById('btnAddAtv').style.display='block';
+    document.querySelectorAll('.atv-num').forEach(function(el,i){el.textContent='Atividade '+(i+1);});
+  } else if(u.tipo.indexOf('modelo_')===0){
+    var atvId2 = u.tipo.replace('modelo_','');
+    var mc3 = document.getElementById(atvId2+'_mcampos');
+    if(mc3){
+      var tmp3 = document.createElement('div');
+      tmp3.innerHTML = u.html;
+      var novoEl3 = tmp3.firstChild;
+      var ref3 = u.afterId ? document.getElementById(u.afterId) : null;
+      if(ref3 && ref3.nextSibling) mc3.insertBefore(novoEl3, ref3.nextSibling);
+      else mc3.appendChild(novoEl3);
+      mc3.style.display='block';
+      reconstruirTexto(atvId2);
+      var mEl3 = novoEl3.querySelector('[id$="_modeloId"]');
+      if(mEl3){
+        var chip3 = document.querySelector('#'+atvId2+'_chips .modelo-chip[onclick*="'+mEl3.value+'"]');
+        if(chip3) chip3.classList.add('usado');
+      }
+    }
+  } else if(u.tipo === 'relato'){
+    var mc = document.getElementById('relatos_mcampos');
+    var tmp2 = document.createElement('div');
+    tmp2.innerHTML = u.html;
+    var novoEl2 = tmp2.firstChild;
+    var ref2 = u.afterId ? document.getElementById(u.afterId) : null;
+    if(ref2 && ref2.nextSibling) mc.insertBefore(novoEl2, ref2.nextSibling);
+    else mc.appendChild(novoEl2);
+    mc.style.display='block';
+    reconstruirRelatos();
+    // Re-marcar chip como usado
+    var mEl = novoEl2.querySelector('[id$="_modeloId"]');
+    if(mEl){
+      var chip = document.querySelector('#relatos_chips .modelo-chip[onclick*="'+mEl.value+'"]');
+      if(chip) chip.classList.add('usado');
+    }
+  }
+}
+function _mostrarDesfazer(msg){
+  if(_undoTimer) clearTimeout(_undoTimer);
+  var t = document.getElementById('toastDesfazer');
+  document.getElementById('toastDesfazerMsg').textContent = msg;
+  t.classList.add('show');
+  _undoTimer = setTimeout(function(){
+    _esconderDesfazer();
+    _undoStack = null;
+  }, 5000);
+}
+function _esconderDesfazer(){
+  document.getElementById('toastDesfazer').classList.remove('show');
+  if(_undoTimer){ clearTimeout(_undoTimer); _undoTimer=null; }
+}
+// ===== FIM DESFAZER =====
+
+function _confirmarRm(btnEl, id, tipo, aoConfirmar){
+  if(_confirmMap[id]){
+    // Segundo clique — confirmar
+    clearTimeout(_confirmMap[id].timer);
+    delete _confirmMap[id];
+    btnEl.classList.remove('btn-rm-confirmando');
+    aoConfirmar();
+  } else {
+    // Primeiro clique — pedir confirmação
+    btnEl.classList.add('btn-rm-confirmando');
+    btnEl.textContent = '?';
+    _confirmMap[id] = {
+      timer: setTimeout(function(){
+        btnEl.classList.remove('btn-rm-confirmando');
+        btnEl.textContent = '×';
+        delete _confirmMap[id];
+      }, 3000)
+    };
+  }
+}
+
 function rmAtv(id){
-  document.getElementById(id).remove();
-  document.getElementById('btnAddAtv').style.display='block';
-  document.querySelectorAll('.atv-num').forEach(function(el,i){el.textContent='Atividade '+(i+1);});
-  var restantes=document.querySelectorAll('.atv-block').length;
+  _confirmarRm(document.querySelector('#'+id+' .btn-rm'), id, 'atv', function(){
+    var el = document.getElementById(id);
+    var prevSibling = el.previousElementSibling;
+    var afterId = prevSibling ? prevSibling.id : null;
+    _guardaUndo('atv', el.outerHTML, afterId);
+    el.remove();
+    document.getElementById('btnAddAtv').style.display='block';
+    document.querySelectorAll('.atv-num').forEach(function(el2,i){el2.textContent='Atividade '+(i+1);});
+    _mostrarDesfazer('Atividade removida');
+  });
 }
 function setTipo(id,tipo){
   document.getElementById(id+'_ta').className='chip'+(tipo==='AÇÃO'?' on':'');
@@ -853,8 +1007,10 @@ function addAb(){
   document.getElementById('abContainer').appendChild(div);
 }
 function rmAb(id){
-  document.getElementById(id).remove();
-  document.querySelectorAll('.ab-num').forEach(function(el,i){el.textContent='Abordagem '+(i+1);});
+  _confirmarRm(document.querySelector('#'+id+' .btn-rm'), id, 'ab', function(){
+    document.getElementById(id).remove();
+    document.querySelectorAll('.ab-num').forEach(function(el,i){el.textContent='Abordagem '+(i+1);});
+  });
 }
 function setAbTipo(id,tipo){
   document.getElementById(id+'_rv').className='chip'+(tipo==='RV'?' on-red':'');
@@ -884,13 +1040,14 @@ function toggleBlocoModelo(blocoId){
   var campos=bloco.querySelector('.modelo-campos-fields');
   var btn=bloco.querySelector('.btn-minimizar');
   if(!campos||!btn) return;
+  var seta=btn.querySelector('span:first-child');
   if(campos.style.display==='none'){
     campos.style.display='block';
-    btn.innerHTML='▲ <span>'+btn.querySelector('span').textContent+'</span>';
+    if(seta) seta.textContent='▲';
     btn.title='Minimizar';
   } else {
     campos.style.display='none';
-    btn.innerHTML='▼ <span>'+btn.querySelector('span').textContent+'</span>';
+    if(seta) seta.textContent='▼';
     btn.title='Expandir';
   }
 }
@@ -898,6 +1055,7 @@ function toggleBlocoModelo(blocoId){
 function selecionarModelo(atvId,modeloId){
   var modelo=MODELOS_DESC.find(function(m){return m.id===modeloId;});
   if(!modelo) return;
+  var cor=modelo.cor||{fundo:'#f0fdf4',borda:'#86efac',faixa:'#bbf7d0',texto:'#15803d'};
   var chip=document.querySelector('#'+atvId+'_chips .modelo-chip[onclick*="'+modeloId+'"]');
   if(chip) chip.classList.add('usado');
   var blocoId=atvId+'_m_'+modeloId+'_'+Date.now();
@@ -915,19 +1073,26 @@ function selecionarModelo(atvId,modeloId){
   div.addEventListener('touchstart',touchStart,{passive:true});
   div.addEventListener('touchmove',touchMove,{passive:false});
   div.addEventListener('touchend',touchEnd);
-  div.style.cssText='border-top:1px dashed #bbf7d0;padding-top:3px;margin-top:3px;cursor:grab;';
+  div.style.cssText='border:1.5px solid '+cor.borda+';margin-top:6px;cursor:grab;display:flex;align-items:stretch;border-radius:10px;overflow:hidden;background:'+cor.fundo+';';
   div.innerHTML=
-    '<div style="display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:3px;flex-wrap:nowrap;>'+
-      '<div style="display:flex;align-items:center;gap:6px;">'+
-        '<span class="drag-handle" title="Arrastar para reordenar">⠿</span>'+
-        '<button type="button" class="btn-minimizar" onclick="toggleBlocoModelo(\''+blocoId+'\')" title="Minimizar" style="background:#e8f5e9;border:none;border-radius:6px;color:#1a6b2f;font-size:13px;padding:4px 10px;cursor:pointer;display:flex;align-items:center;gap:5px;font-weight:700;min-width:0;flex:1;overflow:hidden;">▲ <span>'+modelo.nome+'</span></button>'+
-      '<button type="button" onclick="removerBlocoModelo(\''+atvId+'\',\''+blocoId+'\')" title="Remover" style="background:#fee2e2;border:2px solid #dc2626;border-radius:6px;color:#dc2626;font-size:13px;padding:4px 10px;cursor:pointer;font-weight:700;flex-shrink:0;white-space:nowrap;">✕</button>'+
-    '</div>'+
-    '<div class="modelo-campos-fields">'+
-    modelo.campos.map(function(c){
-      return '<div class="modelo-campo-row"><span class="modelo-campo-label">'+c.label+':</span>'+
-        '<input class="modelo-campo-input" type="text" id="'+blocoId+'_'+c.id+'" placeholder="'+c.label+'..." oninput="reconstruirTexto(\''+atvId+'\')" autocomplete="off"></div>';
-    }).join('')+
+    '<button type="button" class="btn-minimizar" onclick="toggleBlocoModelo(\''+blocoId+'\')" title="Minimizar/Expandir" style="width:38px;min-width:38px;background:'+cor.faixa+';border:none;border-right:1px solid '+cor.borda+';cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:8px 0;flex-shrink:0;">'+
+      '<span style="font-size:16px;color:'+cor.texto+';font-weight:700;line-height:1;">▲</span>'+
+      '<span style="font-size:9px;color:'+cor.texto+';font-weight:700;writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:1px;transform:rotate(180deg);">'+modelo.nome.replace(/^[\S]+\s/,'')+'</span>'+
+    '</button>'+
+    '<div style="flex:1;padding:8px 10px;min-width:0;">'+
+      '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">'+
+        '<span style="font-size:14px;font-weight:700;color:'+cor.texto+';">'+modelo.nome+'</span>'+
+        '<div style="display:flex;align-items:center;gap:6px;">'+
+          '<span class="drag-handle" title="Arrastar" style="color:#9ca3af;font-size:16px;cursor:grab;">⠿</span>'+
+          '<button type="button" onclick="removerBlocoModelo(\''+atvId+'\',\''+blocoId+'\')" title="Remover" style="background:#fee2e2;border:2px solid #dc2626;border-radius:6px;color:#dc2626;font-size:13px;padding:4px 10px;cursor:pointer;font-weight:700;white-space:nowrap;">✕</button>'+
+        '</div>'+
+      '</div>'+
+      '<div class="modelo-campos-fields">'+
+      modelo.campos.map(function(c){
+        return '<div class="modelo-campo-row"><span class="modelo-campo-label">'+c.label+':</span>'+
+          '<input class="modelo-campo-input" type="text" id="'+blocoId+'_'+c.id+'" placeholder="'+c.label+'..." oninput="reconstruirTexto(\''+atvId+'\')" autocomplete="off"></div>';
+      }).join('')+
+      '</div>'+
     '</div>'+
     '<input type="hidden" id="'+blocoId+'_modeloId" value="'+modeloId+'">';
   mc.appendChild(div);
@@ -936,17 +1101,25 @@ function selecionarModelo(atvId,modeloId){
 
 function removerBlocoModelo(atvId,blocoId){
   var el=document.getElementById(blocoId);
-  if(el){
-    var mEl=el.querySelector('[id$="_modeloId"]');
+  if(!el) return;
+  var btnEl=el.querySelector('button[onclick*="removerBlocoModelo"]');
+  _confirmarRm(btnEl, blocoId, 'modelo', function(){
+    var el2=document.getElementById(blocoId);
+    if(!el2) return;
+    var prevSibling=el2.previousElementSibling;
+    var afterId=prevSibling?prevSibling.id:null;
+    _guardaUndo('modelo_'+atvId, el2.outerHTML, afterId);
+    var mEl=el2.querySelector('[id$="_modeloId"]');
     if(mEl){var mId=mEl.value;
       if(!document.querySelectorAll('[id^="'+atvId+'_m_'+mId+'_"]')[1]){
         var chip=document.querySelector('#'+atvId+'_chips .modelo-chip[onclick*="'+mId+'"]');
         if(chip) chip.classList.remove('usado');
       }
     }
-    el.remove();
-  }
-  reconstruirTexto(atvId);
+    el2.remove();
+    reconstruirTexto(atvId);
+    _mostrarDesfazer('Modelo removido');
+  });
 }
 function reconstruirTexto(atvId){
   var mc=document.getElementById(atvId+'_mcampos');
@@ -1056,13 +1229,14 @@ function toggleBlocoRelato(blocoId){
   var campos=bloco.querySelector('.relato-campos');
   var btn=bloco.querySelector('.btn-min-relato');
   if(!campos||!btn) return;
+  var seta=btn.querySelector('span:first-child');
   if(campos.style.display==='none'){
     campos.style.display='block';
-    btn.innerHTML='▲ <span>'+btn.querySelector('span').textContent+'</span>';
+    if(seta) seta.textContent='▲';
     btn.title='Minimizar';
   } else {
     campos.style.display='none';
-    btn.innerHTML='▼ <span>'+btn.querySelector('span').textContent+'</span>';
+    if(seta) seta.textContent='▼';
     btn.title='Expandir';
   }
 }
@@ -1090,20 +1264,30 @@ function selecionarRelato(modeloId){
   div.addEventListener('touchstart',touchStart,{passive:true});
   div.addEventListener('touchmove',touchMove,{passive:false});
   div.addEventListener('touchend',touchEnd);
-  div.style.cssText='border-top:1px dashed #bbf7d0;padding-top:3px;margin-top:3px;cursor:grab;';
+  var cor = modelo.cor || {fundo:'#f0fdf4', borda:'#86efac', faixa:'#bbf7d0', texto:'#15803d'};
+  div.style.cssText='border:1.5px solid '+cor.borda+';margin-top:6px;cursor:grab;display:flex;align-items:stretch;border-radius:10px;overflow:hidden;background:'+cor.fundo+';';
   div.innerHTML=
-    '<div style="display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:3px;flex-wrap:nowrap;>'+
-      '<div style="display:flex;align-items:center;gap:6px;">'+
-        '<span class="drag-handle" title="Arrastar para reordenar">⠿</span>'+
-        '<button type="button" class="btn-min-relato" onclick="toggleBlocoRelato(\''+blocoId+'\')" title="Minimizar" style="background:#e8f5e9;border:none;border-radius:6px;color:#1a6b2f;font-size:13px;padding:4px 10px;cursor:pointer;display:flex;align-items:center;gap:5px;font-weight:700;min-width:0;flex:1;overflow:hidden;">▲ <span>'+modelo.nome+'</span></button>'+
-      '<button type="button" onclick="removerBlocoRelato(\''+blocoId+'\')" title="Remover" style="background:#fee2e2;border:2px solid #dc2626;border-radius:6px;color:#dc2626;font-size:13px;padding:4px 10px;cursor:pointer;font-weight:700;flex-shrink:0;white-space:nowrap;">✕</button>'+
-    '</div>'+
-    '<div class="relato-campos">'+
-    modelo.campos.map(function(c){
-      return '<div class="modelo-campo-row"><span class="modelo-campo-label">'+c.label+':</span>'+
-        '<input class="modelo-campo-input" type="text"'+(c.numeric?' inputmode="numeric" pattern="[0-9]*"':'')+
-        ' id="'+blocoId+'_'+c.id+'" placeholder="'+c.label+'..." oninput="reconstruirRelatos()" onkeydown="virgulaPorEspaco(event,this)" autocomplete="off"></div>';
-    }).join('')+
+    // Faixa lateral: botão minimizar (área de toque grande)
+    '<button type="button" class="btn-min-relato" onclick="toggleBlocoRelato(\''+blocoId+'\')" title="Minimizar/Expandir" style="width:38px;min-width:38px;background:'+cor.faixa+';border:none;border-right:1px solid '+cor.borda+';cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:8px 0;flex-shrink:0;">'+
+      '<span style="font-size:16px;color:'+cor.texto+';font-weight:700;line-height:1;">▲</span>'+
+      '<span style="font-size:9px;color:'+cor.texto+';font-weight:700;writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:1px;transform:rotate(180deg);">'+modelo.nome.replace(/^[\S]+\s/,'')+'</span>'+
+    '</button>'+
+    // Conteúdo principal
+    '<div style="flex:1;padding:8px 10px;min-width:0;">'+
+      '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">'+
+        '<span style="font-size:14px;font-weight:700;color:'+cor.texto+';">'+modelo.nome+'</span>'+
+        '<div style="display:flex;align-items:center;gap:6px;">'+
+          '<span class="drag-handle" title="Arrastar para reordenar" style="color:#9ca3af;font-size:16px;cursor:grab;">⠿</span>'+
+          '<button type="button" onclick="removerBlocoRelato(\''+blocoId+'\')" title="Remover" style="background:#fee2e2;border:2px solid #dc2626;border-radius:6px;color:#dc2626;font-size:13px;padding:4px 10px;cursor:pointer;font-weight:700;white-space:nowrap;">✕</button>'+
+        '</div>'+
+      '</div>'+
+      '<div class="relato-campos">'+
+      modelo.campos.map(function(c){
+        return '<div class="modelo-campo-row"><span class="modelo-campo-label">'+c.label+':</span>'+
+          '<input class="modelo-campo-input" type="text"'+(c.numeric?' inputmode="numeric" pattern="[0-9]*"':'')+
+          ' id="'+blocoId+'_'+c.id+'" placeholder="'+c.label+'..." oninput="reconstruirRelatos()" onkeydown="virgulaPorEspaco(event,this)" autocomplete="off"></div>';
+      }).join('')+
+      '</div>'+
     '</div>'+
     '<input type="hidden" id="'+blocoId+'_modeloId" value="'+modeloId+'">';
   mc.appendChild(div);
@@ -1127,16 +1311,25 @@ function selecionarRelato(modeloId){
 
 function removerBlocoRelato(blocoId){
   var el=document.getElementById(blocoId);
-  if(el){
-    var mEl=el.querySelector('[id$="_modeloId"]');
+  if(!el) return;
+  // Encontrar o botão ✕ dentro do bloco
+  var btnEl = el.querySelector('button[onclick*="removerBlocoRelato"]');
+  _confirmarRm(btnEl, blocoId, 'relato', function(){
+    var el2=document.getElementById(blocoId);
+    if(!el2) return;
+    var prevSibling = el2.previousElementSibling;
+    var afterId = prevSibling ? prevSibling.id : null;
+    _guardaUndo('relato', el2.outerHTML, afterId);
+    var mEl=el2.querySelector('[id$="_modeloId"]');
     if(mEl){
       var mId=mEl.value;
       var chip=document.querySelector('#relatos_chips .modelo-chip[onclick*="'+mId+'"]');
       if(chip) chip.classList.remove('usado');
     }
-    el.remove();
-  }
-  reconstruirRelatos();
+    el2.remove();
+    reconstruirRelatos();
+    _mostrarDesfazer('Relato removido');
+  });
 }
 
 
