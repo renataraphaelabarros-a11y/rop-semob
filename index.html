@@ -1532,6 +1532,7 @@ function atualizarEquipe(){
   var matriculas = [];
   var equipeEl = document.getElementById('equipe');
   Object.keys(EQUIPE_MAP).forEach(function(chave){
+    if(chave === 'faltosos') return; // faltosos só vai em Outros Relatos, não no campo Equipe
     var identEl = document.getElementById(EQUIPE_MAP[chave].idIdent);
     if(identEl && identEl.value.trim()) matriculas.push(identEl.value.trim());
   });
