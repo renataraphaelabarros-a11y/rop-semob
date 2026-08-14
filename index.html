@@ -351,10 +351,10 @@ var GDRIVE_CLIENT_ID = '872104274431-4k5603k842orhjkktu1h0db0bk6n55og.apps.googl
 
 // Modelos de descrição de atividades
 var MODELOS_DESC = [
-  {id:'monitoramento', nome:'🔍 Fisc. Rotina',
+  {id:'monitoramento', nome:'🔍 FISC.',
    cor:{fundo:'#f0fdf4', borda:'#86efac', faixa:'#bbf7d0', texto:'#15803d'},
-   template:'Realizamos monitoramento e fiscalização em pontos importantes para a segurança viária e coibimos irregularidade quanto a infrações de trânsito.\nSituação: {situacao}\nLocal: {local}\nVeículo: {veiculo}\nResultado: {resultado}',
-   campos:[{id:'situacao',label:'Situação'},{id:'local',label:'Local'},{id:'veiculo',label:'Veículo'},{id:'resultado',label:'Resultado'}]},
+   template:'{lc} - Durante fiscalização/monitoramento na {local}, visualizamos {veic_situacao} {irregularidade}. {resultado}',
+   campos:[{id:'lc',label:'LC'},{id:'local',label:'Local'},{id:'veic_situacao',label:'Veíc/Situação'},{id:'irregularidade',label:'Irregularidade'},{id:'resultado',label:'Resultado'}]},
   {id:'cott', nome:'📞 COTT',
    cor:{fundo:'#eff6ff', borda:'#93c5fd', faixa:'#bfdbfe', texto:'#1d4ed8'},
    template:'Atendemos solicitação do COTT referente {situacao}, {local}, {veiculo}, {resultado}.',
@@ -1182,8 +1182,9 @@ function selecionarModelo(atvId,modeloId){
       '</div>'+
       '<div class="modelo-campos-fields">'+
       modelo.campos.map(function(c){
+        var extraAttrs=c.id==='lc'?' inputmode="numeric" maxlength="3" pattern="[0-9]{3}" oninput="this.value=this.value.replace(/[^0-9]/g,\'\').slice(0,3);reconstruirTexto(\''+atvId+'\')"':' oninput="reconstruirTexto(\''+atvId+'\')"';
         return '<div class="modelo-campo-row"><span class="modelo-campo-label">'+c.label+':</span>'+
-          '<input class="modelo-campo-input" type="text" id="'+blocoId+'_'+c.id+'" placeholder="'+c.label+'..." oninput="reconstruirTexto(\''+atvId+'\')" autocomplete="off"></div>';
+          '<input class="modelo-campo-input" type="text" id="'+blocoId+'_'+c.id+'" placeholder="'+c.label+'..."'+extraAttrs+' autocomplete="off"></div>';
       }).join('')+
       '</div>'+
     '</div>'+
