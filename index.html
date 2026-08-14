@@ -353,16 +353,16 @@ var GDRIVE_CLIENT_ID = '872104274431-4k5603k842orhjkktu1h0db0bk6n55og.apps.googl
 var MODELOS_DESC = [
   {id:'monitoramento', nome:'🔍 FISC.',
    cor:{fundo:'#f0fdf4', borda:'#86efac', faixa:'#bbf7d0', texto:'#15803d'},
-   template:'{lc} - Durante fiscalização/monitoramento na {local}, visualizamos {veic_situacao} {irregularidade}. {resultado}',
+   template:'LC {lc} - Durante fiscalização/monitoramento na {local}, visualizamos {veic_situacao} {irregularidade}. {resultado}',
    campos:[{id:'lc',label:'LC'},{id:'local',label:'Local'},{id:'veic_situacao',label:'Veíc/Situação'},{id:'irregularidade',label:'Irregularidade'},{id:'resultado',label:'Resultado'}]},
   {id:'cott', nome:'📞 COTT',
    cor:{fundo:'#eff6ff', borda:'#93c5fd', faixa:'#bfdbfe', texto:'#1d4ed8'},
-   template:'Atendemos solicitação do COTT referente {situacao}, {local}, {veiculo}, {resultado}.',
-   campos:[{id:'situacao',label:'Situação'},{id:'local',label:'Local'},{id:'veiculo',label:'Veículo'},{id:'resultado',label:'Resultado'}]},
-  {id:'fiscalizacao', nome:'🚨 Ocorrência',
+   template:'Atendemos solicitação/denúncia do COTT referente {denuncia} na {local}. {resultado}',
+   campos:[{id:'denuncia',label:'Denúncia'},{id:'local',label:'Local'},{id:'resultado',label:'Resultado'}]},
+  {id:'fiscalizacao', nome:'🚨 Demanda',
    cor:{fundo:'#fff1f2', borda:'#fca5a5', faixa:'#fecaca', texto:'#b91c1c'},
-   template:'Durante fiscalização, visualizamos {situacao}, {local}, {veiculo}, {resultado}.',
-   campos:[{id:'situacao',label:'Situação'},{id:'local',label:'Local'},{id:'veiculo',label:'Veículo'},{id:'resultado',label:'Resultado'}]}
+   template:'Atendemos demanda de {evento_servico} na {local}. {resultado}',
+   campos:[{id:'evento_servico',label:'Evento/Serviço'},{id:'local',label:'Local'},{id:'resultado',label:'Resultado'}]}
 ];
 
 // Modelos de Outros Relatos
