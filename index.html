@@ -354,7 +354,20 @@ var MODELOS_DESC = [
   {id:'monitoramento', nome:'🔍 FISC.',
    cor:{fundo:'#f0fdf4', borda:'#86efac', faixa:'#bbf7d0', texto:'#15803d'},
    template:'LC {lc} - Durante fiscalização/monitoramento na {local}, visualizamos {veic_situacao} {irregularidade}. {resultado}',
-   campos:[{id:'lc',label:'LC'},{id:'local',label:'Local'},{id:'veic_situacao',label:'Veíc/Situação'},{id:'irregularidade',label:'Irregularidade'},{id:'resultado',label:'Resultado'}]},
+   campos:[{id:'lc',label:'LC',opcoes:[
+     {v:'009',t:'LC009 - Centros de Operações (COTT / CCC / SMART / CIOP)'},
+     {v:'010',t:'LC010 - Operação de Interdição de Vias em Eventos'},
+     {v:'011',t:'LC011 - Mudanças de Circulação do Fluxo Viário'},
+     {v:'012',t:'LC012 - Ciclovias e Ciclofaixas'},
+     {v:'013',t:'LC013 - Vagas de Zona Azul'},
+     {v:'014',t:'LC014 - Vagas Especiais (Idosos e Pessoas com Deficiência)'},
+     {v:'015',t:'LC015 - Bares e Restaurantes sob Designação'},
+     {v:'016',t:'LC016 - Praias do Seixas e da Penha'},
+     {v:'017',t:'LC017 - Shopping Pátio Altiplano'},
+     {v:'018',t:'LC018 - Rotatória do Cajueiro'},
+     {v:'019',t:'LC019 - Av. Josefa Taveira e Mercado de Mangabeira'},
+     {v:'020',t:'LC020 - Feira de Oitizeiro'}
+   ]},{id:'local',label:'Local'},{id:'veic_situacao',label:'Veíc/Situação'},{id:'irregularidade',label:'Irregularidade'},{id:'resultado',label:'Resultado'}]},
   {id:'cott', nome:'📞 COTT',
    cor:{fundo:'#eff6ff', borda:'#93c5fd', faixa:'#bfdbfe', texto:'#1d4ed8'},
    template:'Atendemos solicitação/denúncia do COTT referente {denuncia} na {local}. {resultado}',
@@ -1168,10 +1181,6 @@ function selecionarModelo(atvId,modeloId){
   div.addEventListener('touchend',touchEnd);
   div.style.cssText='border:1.5px solid '+cor.borda+';margin-top:6px;cursor:grab;display:flex;align-items:stretch;border-radius:10px;overflow:hidden;background:'+cor.fundo+';';
   div.innerHTML=
-    '<button type="button" class="btn-minimizar" onclick="toggleBlocoModelo(\''+blocoId+'\')" title="Minimizar/Expandir" style="width:38px;min-width:38px;background:'+cor.faixa+';border:none;border-right:1px solid '+cor.borda+';cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:8px 0;flex-shrink:0;">'+
-      '<span style="font-size:16px;color:'+cor.texto+';font-weight:700;line-height:1;">▲</span>'+
-      '<span style="font-size:9px;color:'+cor.texto+';font-weight:700;writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:1px;transform:rotate(180deg);">'+modelo.nome.replace(/^[\S]+\s/,'')+'</span>'+
-    '</button>'+
     '<div style="flex:1;padding:8px 10px;min-width:0;">'+
       '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">'+
         '<span style="font-size:14px;font-weight:700;color:'+cor.texto+';">'+modelo.nome+'</span>'+
@@ -1182,6 +1191,11 @@ function selecionarModelo(atvId,modeloId){
       '</div>'+
       '<div class="modelo-campos-fields">'+
       modelo.campos.map(function(c){
+        if(c.opcoes){
+          var opts='<option value="">Selecione...</option>'+c.opcoes.map(function(o){return '<option value="'+o.v+'">'+o.t+'</option>';}).join('');
+          return '<div class="modelo-campo-row"><span class="modelo-campo-label">'+c.label+':</span>'+
+            '<select class="modelo-campo-input" id="'+blocoId+'_'+c.id+'" onchange="reconstruirTexto(\''+atvId+'\')">'+opts+'</select></div>';
+        }
         var extraAttrs=c.id==='lc'?' inputmode="numeric" maxlength="3" pattern="[0-9]{3}" oninput="this.value=this.value.replace(/[^0-9]/g,\'\').slice(0,3);reconstruirTexto(\''+atvId+'\')"':' oninput="reconstruirTexto(\''+atvId+'\')"';
         return '<div class="modelo-campo-row"><span class="modelo-campo-label">'+c.label+':</span>'+
           '<input class="modelo-campo-input" type="text" id="'+blocoId+'_'+c.id+'" placeholder="'+c.label+'..."'+extraAttrs+' autocomplete="off"></div>';
@@ -1361,11 +1375,6 @@ function selecionarRelato(modeloId){
   var cor = modelo.cor || {fundo:'#f0fdf4', borda:'#86efac', faixa:'#bbf7d0', texto:'#15803d'};
   div.style.cssText='border:1.5px solid '+cor.borda+';margin-top:6px;cursor:grab;display:flex;align-items:stretch;border-radius:10px;overflow:hidden;background:'+cor.fundo+';';
   div.innerHTML=
-    // Faixa lateral: botão minimizar (área de toque grande)
-    '<button type="button" class="btn-min-relato" onclick="toggleBlocoRelato(\''+blocoId+'\')" title="Minimizar/Expandir" style="width:38px;min-width:38px;background:'+cor.faixa+';border:none;border-right:1px solid '+cor.borda+';cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:8px 0;flex-shrink:0;">'+
-      '<span style="font-size:16px;color:'+cor.texto+';font-weight:700;line-height:1;">▲</span>'+
-      '<span style="font-size:9px;color:'+cor.texto+';font-weight:700;writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:1px;transform:rotate(180deg);">'+modelo.nome.replace(/^[\S]+\s/,'')+'</span>'+
-    '</button>'+
     // Conteúdo principal
     '<div style="flex:1;padding:8px 10px;min-width:0;">'+
       '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">'+
@@ -1860,14 +1869,7 @@ function gerarPDF(){
       // === ÁREA INFERIOR — campo azul ÚNICO cobrindo toda a largura ===
       sfl(230,235,255);doc.rect(mg+1,y+aTopH+1,cw-2,aBotH-2,'F');
       doc.setLineWidth(0.2);R(mg+1,y+aTopH+1,cw-2,aBotH-2);doc.setLineWidth(0.3);
-      if(atv&&atv.desc){
-        sf('normal',12);sc(15,15,15);
-        var dlines=doc.splitTextToSize(atv.desc,cw-5);
-        var maxDL=Math.floor((aBotH-4)/3.6);
-        if(dlines.length>maxDL)dlines=dlines.slice(0,maxDL);
-        doc.text(dlines,mg+2.5,y+aTopH+5);
-        sc(0,0,0);
-      }
+      addTFMulti('atividade_desc_'+ai, mg+1.5, y+aTopH+1.5, cw-3, aBotH-3, 9, atv&&atv.desc?atv.desc:'');
 
       y+=aTotH;
     }
