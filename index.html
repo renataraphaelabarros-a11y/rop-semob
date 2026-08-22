@@ -66,7 +66,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2f5;min-height:100vh;display:
 .mini-label{font-size:13px;font-weight:600;color:#6b7280;margin-bottom:5px;display:block}
 .mini-input{width:100%;padding:10px 12px;border:1.5px solid #d1d5db;border-radius:8px;font-family:'Inter',sans-serif;font-size:15px;color:#111;background:white;-webkit-appearance:none}
 .mini-input:focus{outline:none;border-color:#1a6b2f}
-.mini-textarea{width:100%;padding:10px 12px;border:1.5px solid #d1d5db;border-radius:8px;font-family:'Inter',sans-serif;font-size:15px;color:#111;background:white;resize:vertical;min-height:70px}
+.mini-textarea{width:100%;padding:10px 12px;border:1.5px solid #d1d5db;border-radius:8px;font-family:'Inter',sans-serif;font-size:15px;color:#111;background:white;resize:none;overflow:hidden;min-height:70px}
 .mini-textarea:focus{outline:none;border-color:#1a6b2f}
 /* Abordagem */
 .ab-block{border:1.5px solid #e5e7eb;border-radius:11px;padding:16px;margin-bottom:12px;background:#fafafa}
@@ -1602,7 +1602,7 @@ function reconstruirRelatos(){
   atualizarEquipe();
 }
 function autoExpand(el){
-  el.style.height='auto';
+  el.style.height='0px';
   el.style.height=(el.scrollHeight)+'px';
 }
 
